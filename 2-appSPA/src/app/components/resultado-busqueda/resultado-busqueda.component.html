@@ -1,0 +1,19 @@
+<h1>Héroes <small>Resultados de busqueda</small></h1>
+<hr>
+
+<h3 *ngIf="resultadoHeroes.length == 0" >No existen resultados que coincidan con tu busqueda</h3>
+
+<div class="card-columns">
+
+  <div class="card animated fadeIn" *ngFor="let heroe of resultadoHeroes; let i = index"><!--  heroes es la variable con los heroes del heroes.component.ts -->
+    <img class="card-img-top" src="{{heroe.img}}" alt="{{heroe.nombre}}">
+    <div class="card-body">
+      <h5 class="card-title">{{heroe.nombre}}</h5>
+      <p class="card-text">{{heroe.bio}}</p>
+      <p class="card-text"><small class="text-muted">{{heroe.aparicion}}</small></p>
+
+    </div>
+  </div>
+
+
+</div>
