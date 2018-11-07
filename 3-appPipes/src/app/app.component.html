@@ -101,7 +101,20 @@
       <td>date:'MMMM - dd'</td>
       <td>{{fecha | date:'MMMM - dd' }}</td>
     </tr>
-    
+
+    <tr>
+      <th scope="row">{{nombre2}}</th>
+      <td>CUSTOM: capitalizado</td>
+      <td>{{nombre2 | capitalizado}}</td>
+    </tr>
+
+    <tr>
+      <th scope="row">{{nombre2}}</th>
+      <td>CUSTOM: capitalizado:false</td>
+      <td>{{nombre2 | capitalizado:false}}</td>
+    </tr>
+
+
     <!-- <tr>
       <th scope="row">{{}}</th>
       <td></td>
@@ -122,6 +135,9 @@
   {{heroe | json }} <!-- solo sirve para mostrarlo como json, la etiqueta pre es para organizarlo mejor -->
 </pre>
 
+<h4>Youtube Video</h4>
+
+<iframe width="560" height="315" src="{{video | domseguro:'https://www.youtube.com/embed/'}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <br><br><br><br><br><br>
 </div>
