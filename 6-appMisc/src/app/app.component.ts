@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'miscelaneos';
+  variable:string = "#000";
 }
