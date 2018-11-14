@@ -3,3 +3,15 @@
 
   margin-top: 50px;
 }
+
+.left-10{
+  margin-left: 10px;
+}
+
+.has-danger{
+  color: red;
+}
+
+.has-danger input{
+  border: solid 1px red;
+}

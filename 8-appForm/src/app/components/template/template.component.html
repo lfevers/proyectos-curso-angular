@@ -1,16 +1,28 @@
 <h4>Formularios <small>template</small></h4>
 <hr>
-<form>
+<form (ngSubmit)="guardar(forma);" #forma="ngForm" novalidate> <!-- #forma es una variable que creamos aki con el # en la que guardamos todos los datos del formulario -->
 
   <div>
 
     <div class="form-group row">
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
-
+        <!-- OJO, SI PONES EL ngModel sin los () no cambia la variable en el ts, solo la muestra aqui -->
         <input class="form-control"
                type="text"
-               placeholder="Nombre">
+               placeholder="Nombre"
+               [ngModel]="usuario.nombre"
+               name="nombre"
+               minlength="3"
+               required
+               #nombre="ngModel">
+               <!--  aqui guardo ya directamente nombre, no todo el form como arriba -->
+        <div *ngIf="nombre.errors?.required" class=""> <!-- la interrogación es para saber si existe el elemento -->
+            Este campo es requerido.
+        </div>
+        <div *ngIf="nombre.errors?.minlength"class="">
+            Este campo requiere por lo menos {{nombre.errors.minlength.requiredLength}} caracters.
+        </div>
       </div>
     </div>
 
@@ -20,7 +32,14 @@
 
         <input class="form-control"
                type="text"
-               placeholder="Apellido">
+               placeholder="Apellido"
+               [ngModel]="usuario.apellido"
+               name="apellido"
+               required
+               #apellido="ngModel">
+        <div *ngIf="apellido.errors?.required" class=""> <!-- la interrogación es para saber si existe el elemento -->
+          Este campo es requerido.
+        </div>
       </div>
     </div>
 
@@ -32,19 +51,67 @@
 
       <input class="form-control"
              type="email"
-             placeholder="Correo electrónico">
+             placeholder="Correo electrónico"
+             [ngModel]="usuario.correo"
+             name="correo"
+             required
+             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+             #correo="ngModel">
+      <div *ngIf="correo.errors?.required" class=""> <!-- la interrogación es para saber si existe el elemento -->
+         Este campo es requerido.
+      </div>
+      <div *ngIf="correo.errors?.pattern"class="">
+         El formato introducido no es valido.
+      </div>
     </div>
   </div>
 
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Pais</label>
+    <div class="col-md-8">
+      <select class="form-control" name="pais" [(ngModel)]="usuario.pais">
+        <option value="">Seleccione un pais</option>
+        <option *ngFor="let pais of paises" value="{{pais.codigo}}">{{pais.nombre}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Sexo</label>
+    <div class="col-md-8">
+            <!-- Default inline 1-->
+      <div *ngFor="let s of sexos; let i = index;" class="custom-control custom-radio custom-control-inline">
+        <input type="radio" class="custom-control-input" id="{{'campo' + i }}" name="sexo" [(ngModel)]="usuario.sexo" [value]="s">
+        <label class="custom-control-label" for="{{'campo' + i }}">{{s}}</label>
+      </div>
+
+      <!-- https://mdbootstrap.com/docs/jquery/forms/radio-button/  DE AQUI HE COGIDO ESTOS RADIOS -->
+    </div>
+  </div>
+
+<!-- CHECKBOX -->
+<div class="form-group row">
+  <label class="col-2 col-form-label">Acepta</label>
+  <div class="col-md-8">
+
+    <div class="custom-control custom-checkbox custom-control-inline">
+      <input type="checkbox" class="custom-control-input" id="defaultInline1" [(ngModel)]="usuario.acepta" name="acepta" required>
+      <label class="custom-control-label" for="defaultInline1">Acepta 1</label>
+    </div>
+
+  </div>
+</div>
 
 
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>
     <div class="input-group col-md-8">
-      <button type="submit" class="btn btn-outline-primary">
+      <button type="submit" class="btn btn-outline-primary" [disabled]="forma.invalid"> <!--  [disabled]="forma.invalid" -->
         Guardar
       </button>
     </div>
   </div>
 
 </form>
+
+<pre> {{usuario | json}}</pre>
