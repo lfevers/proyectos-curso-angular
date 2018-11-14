@@ -2,26 +2,26 @@
 <hr>
 <form [formGroup]="forma" (ngSubmit)="guardarCambios();" novalidate="novalidate">
 
-  <div>
+  <div formGroupName="nombrecompleto"> <!-- esto esta porque engloba a nombre y apellido, para que sepa k esta dentro de un form group -->
 
-    <div class="form-group row" [ngClass]="{'has-danger': !forma.get('nombre').valid }"> <!-- esto es como un if -->
+    <div class="form-group row" [ngClass]="{'has-danger': !forma.controls['nombrecompleto'].controls['nombre'].valid}"> <!-- esto es como un if / [ngClass]="{'has-danger': !forma.get('nombre').valid }" -->
       <label class="col-2 col-form-label">Nombre</label>
       <div class="col-8">
 
         <input class="form-control"
                type="text"
                placeholder="Nombre"
-               formControlName="nombre"> <!-- el formControlName tiene que tener el mismo valor que en this.forma en el constructor -->
-        <div *ngIf="forma.controls['nombre'].errors?.required" class="form-control-feedback"> <!-- *ngIf="forma.controls['nombre'].invalid" -->
+               formControlName="nombre"> <!-- el formControlName tiene que tener el mismo valor que en this.forma en el constructor, porque hemos puesto que [formGroup] = forma-->
+        <div *ngIf="forma.get('nombrecompleto.nombre').errors?.required" class="form-control-feedback">
           El nombre es necesario
         </div>
-        <div *ngIf="forma.controls['nombre']?.errors?.minlength" class="form-control-feedback">
-          Debe tener minimo {{forma.controls['nombre'].errors.minlength.requiredLength}} caracteres
+        <div *ngIf="forma.get('nombrecompleto.nombre').errors?.minlength" class="form-control-feedback">
+          Debe tener minimo {{forma.get('nombrecompleto.nombre').errors.minlength.requiredLength}} caracteres
         </div>
       </div>
     </div>
 
-    <div class="form-group row">
+    <div class="form-group row" [ngClass]="{'has-danger': !forma.controls['nombrecompleto'].controls['apellido'].valid}">
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
@@ -29,6 +29,9 @@
                type="text"
                placeholder="Apellido"
                formControlName="apellido">
+        <div *ngIf="forma.get('nombrecompleto.apellido').errors?.noherrera" class="form-control-feedback">
+            El apellido herrera esta prohibido
+        </div>
       </div>
     </div>
 
@@ -45,17 +48,65 @@
     </div>
   </div>
 
+  <div class="form-group row" [ngClass]="{'has-danger': !forma.controls['password2'].valid}">
+    <label class="col-2 col-form-label">Username</label>
+    <div class="col-md-8">
+      <input class="form-control"
+             type="text"
+             placeholder="usuario"
+             formControlName="username">
+    </div>
+  </div>
 
+  <div class="form-group row" [ngClass]="{'has-danger': !forma.controls['password2'].valid}">
+    <label class="col-2 col-form-label">Contraseña</label>
+    <div class="col-md-8">
+      <input class="form-control"
+             type="password"
+             placeholder="Password"
+             formControlName="password1">
+    </div>
+  </div>
+
+  <div class="form-group row" [ngClass]="{'has-danger': !forma.controls['password2'].valid}">
+    <label class="col-2 col-form-label">Repetir</label>
+    <div class="col-md-8">
+      <input class="form-control"
+             type="password"
+             placeholder="Password"
+             formControlName="password2">
+      <div *ngIf="forma.get('password2').errors?.required" class="form-control-feedback">
+        Campo obligatorio
+      </div>
+      <div *ngIf="forma.get('password2').errors?.noigual && !forma.get('password2').errors?.required" class="form-control-feedback">
+        Las contraseñas no coinciden
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Pasatiempos</label>
+    <div class="col-md-8" formArrayName="pasatiempos">
+      <input  *ngFor="let pasatiempo of forma.controls['pasatiempos'].controls; let i = index;"
+              class="form-control"
+              type="text"
+              [formControlName]="i">
+    </div>
+  </div>
+
+  <button class="btn btn-primary" type="button" (click)="agregarPasatiempo();">Añadir campo</button>
 
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>
     <div class="input-group col-md-8">
-      <button type="submit" class="btn btn-outline-primary">
+      <button type="submit" class="btn btn-outline-primary" [disabled]="forma.invalid || forma.status == 'PENDING'">
         Guardar
       </button>
     </div>
   </div>
 
   {{forma.valid}}
+  <br>
+  {{forma.status}}
 
 </form>
