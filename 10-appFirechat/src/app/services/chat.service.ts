@@ -58,7 +58,6 @@ export class ChatService {
       for(let mensaje of mensajes){
         this.chats.unshift(mensaje); //esto es para coger el array y gaurdarlo en el orden inverso creo que unshift es como push solo que inserta siempre en el primer lugar
       }
-      console.log("tamano: " + this.chats.length);
     });
 
   }
