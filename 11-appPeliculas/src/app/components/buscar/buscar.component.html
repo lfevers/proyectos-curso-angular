@@ -1,0 +1,31 @@
+<div class="container top-20">
+
+  <div class="form-group row">
+    <label for="inputPassword" class="col-md-1 col-form-label">Buscar:</label>
+    <div class="col-md-11">
+      <input type="text" class="form-control" (keyup)="buscarPelicula()" name="termino" [(ngModel)]="_peliculasService.termino">
+    </div>
+  </div>
+
+  <div class="alert alert-primary" role="alert" *ngIf="!_peliculasService.termino">
+    Introduce un término para realizar la busqueda
+  </div>
+
+  <div class="alert alert-warning" role="alert" *ngIf="_peliculasService.resultados.length == 0 && _peliculasService.termino">
+    No se han encontrado resultados para: <strong>{{_peliculasService.termino}}</strong>. Prueba con otro término.
+  </div>
+
+
+
+  <div class="card-columns top-20">
+    <div class="card" *ngFor="let pelicula of _peliculasService.resultados" [routerLink]="['/pelicula', pelicula.id ]">
+      <img class="card-img-top" [src]="pelicula.backdrop_path | noImagen"  alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{pelicula.title}}</h5>
+        <p class="card-text text-justify">{{pelicula.overview | slice:0:250}} ... </p>
+        <button type="button" class="btn btn-outline-primary btn-block" name="button">Ver más...</button>
+      </div>
+    </div>
+  </div>
+
+</div>

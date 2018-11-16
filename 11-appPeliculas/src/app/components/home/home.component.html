@@ -1,0 +1,60 @@
+
+<div class="titulo">
+  <h1>PelisApp</h1>
+  <p>Esta es una aplicación de películas</p>
+</div>
+
+
+<div class="peliculas">
+
+  <h2 class="bottom-20">Peliculas en cartelera</h2>
+
+  <div class="card-columns">
+
+    <div class="card bg-dark text-white" *ngFor="let pelicula of _peliculasService.estrenos" [routerLink]="['/pelicula', pelicula.id ]">
+      <img class="card-img" [src]="pelicula.backdrop_path | noImagen" alt="Card image">
+      <div class="card-img-overlay">
+        <h5 class="card-title back-black-07 text-center right-100">{{pelicula.original_title}}</h5>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<hr>
+
+<div class="peliculas">
+
+  <h2 class="bottom-20">Peliculas más populares</h2>
+
+  <div class="card-columns">
+
+    <div class="card bg-dark text-white" *ngFor="let pelicula of _peliculasService.populares" [routerLink]="['/pelicula', pelicula.id ]">
+      <img class="card-img" [src]="pelicula.backdrop_path | noImagen" alt="Card image">
+      <div class="card-img-overlay">
+        <h5 class="card-title back-black-07 text-center right-100">{{pelicula.original_title}}</h5>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<hr>
+
+<div class="peliculas">
+
+  <h2 class="bottom-20">Peliculas más populares para niños</h2>
+
+  <div class="card-columns">
+
+    <div class="card bg-dark text-white" *ngFor="let pelicula of _peliculasService.populares_kids" [routerLink]="['/pelicula', pelicula.id ]">
+      <img class="card-img" [src]="pelicula.backdrop_path | noImagen" alt="Card image">
+      <div class="card-img-overlay">
+        <h5 class="card-title back-black-07 text-center right-100">{{pelicula.original_title}}</h5>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

@@ -1,0 +1,29 @@
+<div class="container top-20">
+  <h1>{{_peliculasService.pelicula.title}}</h1>
+  <div class="row top-20">
+    <div class="col-md-4">
+      <img [src]="_peliculasService.pelicula.poster_path | noImagen:300" alt="">
+    </div>
+
+    <div class="col-md-8">
+      <h3>Sinopsis</h3>
+      <hr>
+      <p>{{_peliculasService.pelicula.overview}}</p>
+
+      <p>Popularidad:
+        <span class="badge badge-primary">{{_peliculasService.pelicula.popularity}}</span></p>
+      <p>Voto promedio:
+        <span class="badge" [ngClass]="{
+                                        'badge-success': _peliculasService.pelicula.vote_average >= 7 ,
+                                        'badge-danger': _peliculasService.pelicula.vote_average < 4,
+                                        'badge-warning': _peliculasService.pelicula.vote_average < 7 && _peliculasService.pelicula.vote_average >= 4
+                                        }">
+          {{_peliculasService.pelicula.vote_average}}
+        </span>
+      </p>
+
+      <button type="button" class="btn btn-outline-danger" (click)="regresar();">Regresar</button>
+    </div>
+  </div>
+
+</div>

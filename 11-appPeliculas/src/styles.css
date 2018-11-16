@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+
+}
+
+
+.titulo{
+  padding: 5%;
+  background-color: #0C0F0A;
+  color: #00BFB3;
+}
+
+.peliculas{
+  padding: 5%;
+}
+
+.bottom-20{
+  margin-bottom: 20px;
+}
+
+.top-20{
+  margin-top: 20px;
+}
+
+.right-100{
+  margin-right: 100px;
+}
+
+.back-black-07{
+  background-color: rgba(0, 0, 0, 0.7);
+}
